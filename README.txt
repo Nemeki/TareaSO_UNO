@@ -3,7 +3,7 @@ void crearMas(); // crea cartas +2 y +4
 void crearExtras(); //crea cartas de reversa, salto y colores (carta negra)
 void crearCarpetas(); // crea las carpetas mazo, mano 1, mano 2, mano 3, mano 4 y ultima (carpeta donde va la ultima carta)
 void mostrarArchivos(); // printea los archivos de alguna carpeta (en este caso esta puesta para que printee los archivos de mazo)
-void leerCarta(char *archivo); // lee una carta (abajo explicacion para las cartas
+void leerCarta(char *archivo); // lee una carta (abajo explicacion para las cartas)
 void moverCarta(char *archivo, char *origen, char *destino); // mueve una carta a una carpeta ej: moverCarta("0 azul.txt", mazo, mano 1);
 void moverUltima(char *archivo, char *origen); // lo mismo que moverCarta solo que el destino es la carpeta ultima y si tiene una carta esta se borra (como sale en el enunciado)
 void tomarCarta(char *destino); // elige una carta al azar del mazo y la mueve a destino
