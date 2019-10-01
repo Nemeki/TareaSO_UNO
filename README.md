@@ -2,7 +2,7 @@
 ## Integrantes:
 
 * Beatriz Latorre
-	* Rol:
+	* Rol: 201573543-3
 	* Aporte: creación de cartas y formato
 * Ignacio Figueroa
 	* Rol: 201773526-0
