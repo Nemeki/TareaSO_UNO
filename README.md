@@ -1,8 +1,12 @@
 # Tarea SO
 ## Integrantes:
 
-* Beatriz Latorre, rol:
-* Ignacio Figueroa, rol: 201773526-0
+* Beatriz Latorre
+	* Rol:
+	* Aporte: creación de cartas y formato
+* Ignacio Figueroa
+	* Rol: 201773526-0
+	* Aporte: movimiento de cartas y repartición
 
 ## Instrucciones de uso:
 
