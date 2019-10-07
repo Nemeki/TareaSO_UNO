@@ -3,12 +3,12 @@
 #include <unistd.h>
 
   pid_t pid;
-  int turno;
+  int idJugador;
   int p01[2], p10[2], p12[2], p21[2], p23[2], p32[2], p30[2], p03[2];
   
 
-  int procesosYTurnos(){
-	turno = 0;
+  int procesoseIDJugador(){
+	idJugador = 0;
 	pipe(p01);
 	pipe(p10);
 	pipe(p03);
@@ -16,14 +16,14 @@
 	pid = fork();
 
 	if(pid == 0){
-		turno = 1;
+		idJugador = 1;
 		close(p01[1]);
 		close(p10[0]); 
 		pipe(p12);
 		pipe(p21);
 		pid = fork();
 		if(pid == 0){
-			turno = 2;
+			idJugador = 2;
 			close(p12[1]);
 			close(p21[0]);
 			pipe(p23);
@@ -34,7 +34,7 @@
 				close(p32[0]);
 				close(p03[1]);
 				close(p30[0]);
-				turno = 3;	
+				idJugador = 3;	
 			}
 			else{
 				close(p23[0]);
@@ -51,8 +51,30 @@
 		close(p10[1]);
 		close(p03[0]);
 		close(p30[1]);
-		turno = 0;
+		idJugador = 0;
 	}
-	return turno;
+	return idJugador;
   }
   
+  void escribirMensaje(str mensaje, int pipe[2]){
+	char buffer[SIZE];
+	strcpy(buffer, mensaje);
+	write( b[1], buffer, strlen(buffer));
+	close( b[1] );
+  }
+
+  void turnos(int id){
+	bool jugando, reversa;
+	jugando = TRUE;
+	reversa = FALSE;
+	if(id == 0){
+		//Jugar turno.
+
+		if(reversa == TRUE){
+		
+		}
+	}
+	while jugando{
+	
+	}
+  }
