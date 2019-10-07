@@ -17,7 +17,7 @@ make clean
 ```
 ## Comentarios de uso:
 
-1. En esta entrega, es posible jugar solo con el jugador 1 (con las reglas como deben ser) y terminar el juego de forma normal (ganando), o terminándose el mazo. Algunas consideraciones:
+1. En esta entrega se trabajó en la generación de la lógica del juego. Es posible jugar solo con el jugador 1 (con las reglas como deben ser) y terminar el juego de forma normal (ganando), o terminándose el mazo. Algunas consideraciones:
 	* Usar cartas +2 o +4 hace que uno mismo tenga que sacar las cartas en el siguiente turno.
 	* La implementación de las cartas de salto y reversa va a depender de la comunicación entre pipes, así que de momento no hacen nada (siguen la mismas reglas de color y tipo).
 	* Asimismo, la implementación de la función de turnos está sujeta a cambios y va a depender de los pipes.
