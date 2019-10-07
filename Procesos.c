@@ -56,7 +56,7 @@
 	return idJugador;
   }
   
-  void escribirMensaje(str mensaje, int pipe[2]){
+  void escribirMensaje(char mensaje[50], int pipe[2]){
 	char buffer[SIZE];
 	strcpy(buffer, mensaje);
 	write( b[1], buffer, strlen(buffer));
