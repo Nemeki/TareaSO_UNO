@@ -3,26 +3,28 @@
 
 * Beatriz Latorre
 	* Rol: 201573543-3
-	* Aporte: creación de cartas y formato
 * Ignacio Figueroa
 	* Rol: 201773526-0
-	* Aporte: movimiento de cartas y repartición
 
-## Instrucciones de uso:
+## Instrucciones de ejecución:
 
 Ejecutar los siguientes comandos en el terminal:
 
 ```bash
-make
+make uno
+make clean
 ./uno
 ```
-## Comentarios extra:
+## Comentarios de uso:
 
-1. Como está, el programa deja lista la parte inicial del juego, osea reparte 7 cartas en forma aleatoria a cada jugador y 1 a la zona de la última carta.
+1. En esta entrega, es posible jugar solo con el jugador 1 (con las reglas como deben ser) y terminar el juego de forma normal (ganando), o terminándose el mazo. Algunas consideraciones:
+	* Usar cartas +2 o +4 hace que uno mismo tenga que sacar las cartas en el siguiente turno.
+	* La implementación de las cartas de salto y reversa va a depender de la comunicación entre pipes, así que de momento no hacen nada (siguen la mismas reglas de color y tipo).
+	* Asimismo, la implementación de la función de turnos está sujeta a cambios y va a depender de los pipes.
 
-2. Cada función tiene una explicación en el main.c, tal vez en el futuro se pondrán algunas funciones en otros archivos para descongestionar el main.c
+2. La implementación de las cartas al inicio (si la primera carta es una carta de colores, carta de salto, etc...) se hizo según las indicaciones del enunciado. Por ejemplo, si la primera carta es un +4, entonces el jugador 1 elige el nuevo color y el siguiente jugador debe sacar 4 cartas (en este caso uno mismo).
 
-3. Si quieres comprobar la aleatoriedad de la repartición de cartas, mira cada una de las carpetas, bórralas y corre el programa de nuevo.
+3. Modo debug: La primera vez que se corra el programa, se crearán todos los archivos y carpetas correspondientes. Si se corre con las carpetas ya existentes, se jugará de la forma en que se encuentren los archivos en las carpetas. Esto significa que es posible empezar una partida de la forma que se quiera, por ejemplo partir con 2 cartas en la carpeta "mano 1" para probar el término del programa.
 
 ## Explicación cartas:
 
