@@ -1,0 +1,10 @@
+void turno(int jugador, int *cartasExtra);
+void leerUltima(int *ultimaCarta);
+void escribirUltima(int *cartas);
+void liberarMemoria(char **ptr, int n);
+void printearUno(int j);
+int cartaCompatible(int *accionCarta, int *ultimaCarta, char **cartas, int accion, int *cartasExtra, char *mano);
+int cambiarColor();
+int menuMano(int n);
+int checkMazo();
+int leerMano(char *carpeta, char ***cartas);
