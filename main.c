@@ -7,7 +7,6 @@
 #include <errno.h>
 #include "manejo.h"
 #include "logica.h"
-#include "procesos.h"
 
 int primerTurno = 1;
 
