@@ -61,3 +61,7 @@ Las cartas tienen 3 dígitos en cada línea.
 	* salto verde.txt `2 3 2`
 		
 	* color negro.txt `2 0 0`
+
+## Procesos:
+
+Es aun una prueba y deseamos que no sea parte de lo evaluado pero recibir feedback igualmente si es posible
