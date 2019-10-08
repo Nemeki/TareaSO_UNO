@@ -4,7 +4,6 @@ main.o: main.c
 manejo.o: manejo.c manejo.h
 	gcc -c manejo.c -Wall
 
-
 logica.o: logica.c logica.h
 	gcc -c logica.c -Wall
 	
