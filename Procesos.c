@@ -1,8 +1,19 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include <unistd.h>
+ #include "procesos.h"
 
-
+ /*
+*	 procesos()
+*********
+*   Crea los procesos con sus pipes y hace los cambios de turnos
+**********
+*   Input:
+*		Ninguno
+******
+*   Returns:
+*       Nada
+*****/
 
 void procesos(){
 	pid_t pid;
@@ -109,6 +120,8 @@ void procesos(){
 						write(1, buffer, readbytes);
 						}
 					close(p03[0]);
+					//borrar despues
+					jugando = FALSE;
 					break;
 				}
 			}
@@ -144,6 +157,8 @@ void procesos(){
 						write(1, buffer, readbytes);
 						}
 					close(p23[0]);
+					//borrar despues
+					jugando = FALSE;
 					break;
 				}
 			}
