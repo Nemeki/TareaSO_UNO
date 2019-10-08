@@ -15,6 +15,10 @@ make uno
 make clean
 ./uno
 ```
+## Procesos:
+
+Es aun una prueba y deseamos que no sea parte de lo evaluado pero recibir feedback igualmente si es posible
+
 ## Comentarios de uso:
 
 1. En esta entrega se trabajó en la generación de la lógica del juego. Es posible jugar solo con el jugador 1 (con las reglas como deben ser) y terminar el juego de forma normal (ganando), o terminándose el mazo. Algunas consideraciones:
@@ -61,7 +65,3 @@ Las cartas tienen 3 dígitos en cada línea.
 	* salto verde.txt `2 3 2`
 		
 	* color negro.txt `2 0 0`
-
-## Procesos:
-
-Es aun una prueba y deseamos que no sea parte de lo evaluado pero recibir feedback igualmente si es posible

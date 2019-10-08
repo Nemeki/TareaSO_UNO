@@ -10,8 +10,8 @@ procesos.o: procesos.c procesos.h
 logica.o: logica.c logica.h
 	gcc -c logica.c -Wall
 	
-uno: main.o manejo.o logica.o
-	gcc main.o manejo.o logica.o -o uno
+uno: main.o manejo.o logica.o procesos.o
+	gcc main.o manejo.o logica.o procesos.o -o uno
 
 clean:
 	find . -name '*.o' -type f -delete
