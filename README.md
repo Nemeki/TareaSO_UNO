@@ -15,10 +15,6 @@ make uno
 make clean
 ./uno
 ```
-## Procesos:
-
-Es aun una prueba y deseamos que no sea parte de lo evaluado pero recibir feedback igualmente si es posible
-
 ## Comentarios de uso:
 
 1. En esta entrega se trabajó en la generación de la lógica del juego. Es posible jugar solo con el jugador 1 (con las reglas como deben ser) y terminar el juego de forma normal (ganando), o terminándose el mazo. Algunas consideraciones:
@@ -29,6 +25,9 @@ Es aun una prueba y deseamos que no sea parte de lo evaluado pero recibir feedba
 2. La implementación de las cartas al inicio (si la primera carta es una carta de colores, carta de salto, etc...) se hizo según las indicaciones del enunciado. Por ejemplo, si la primera carta es un +4, entonces el jugador 1 elige el nuevo color y el siguiente jugador debe sacar 4 cartas (en este caso uno mismo).
 
 3. Modo debug: La primera vez que se corra el programa, se crearán todos los archivos y carpetas correspondientes. Si se corre con las carpetas ya existentes, se jugará de la forma en que se encuentren los archivos en las carpetas. Esto significa que es posible empezar una partida de la forma que se quiera, por ejemplo partir con 2 cartas en la carpeta "mano 1" para probar el término del programa.
+## Procesos:
+
+Es aun una prueba y deseamos que no sea parte de lo evaluado pero recibir feedback igualmente si es posible.
 
 ## Explicación cartas:
 
