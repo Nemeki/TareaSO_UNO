@@ -1,6 +1,8 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include <unistd.h>
+ #include <stdbool.h>
+ #include <string.h>
  #include "procesos.h"
 
  /*
@@ -22,10 +24,11 @@ void procesos(){
  
 	bool jugando, reversa;
 	int readbytes;
-	char buffer[SIZE];
+	char buffer[50];
+	char mensaje[] = "turno acabado";
 
-	jugando = TRUE;
-	reversa = FALSE;
+	jugando = true;
+	reversa = false;
 
 	idJugador = 0;
 	pipe(p01);
@@ -76,22 +79,22 @@ void procesos(){
 	if(idJugador == 0){
 		//Jugar turno.
 		//pipe normal
-		if(reversa == TRUE){
-			strcpy(buffer, "turno acabado");
+		if(reversa == true){
+			strcpy(buffer, mensaje);
 			write( p03[1], buffer, strlen(buffer));
 			close( p03[1]);
 			}
 		else{
 			strcpy(buffer, mensaje);
-			write( p01[1], buffer, "turno acabado");
+			write( p01[1], buffer, strlen(buffer));
 			close( p01[1]);
 			}
 		}
 	while(jugando){
-		if(reversa == TRUE){
+		if(reversa == true){
 			switch (idJugador){
 				case 0:
-					readbytes = read(p10[0], buffer, SIZE)
+					readbytes = read(p10[0], buffer, 50);
 					while( readbytes > 0){
 						write(1, buffer, readbytes);
 						}
@@ -99,7 +102,7 @@ void procesos(){
 					break;
 
 				case 1:
-					readbytes = read(p21[0], buffer, SIZE)
+					readbytes = read(p21[0], buffer, 50);
 					while( readbytes > 0){
 						write(1, buffer, readbytes);
 						}
@@ -107,7 +110,7 @@ void procesos(){
 					break;
 
 				case 2:
-					readbytes = read(p32[0], buffer, SIZE)
+					readbytes = read(p32[0], buffer, 50);
 					while( readbytes > 0){
 						write(1, buffer, readbytes);
 						}
@@ -115,20 +118,20 @@ void procesos(){
 					break;
 
 				case 3:
-					readbytes = read(p03[0], buffer, SIZE)
+					readbytes = read(p03[0], buffer, 50);
 					while( readbytes > 0){
 						write(1, buffer, readbytes);
 						}
 					close(p03[0]);
 					//borrar despues
-					jugando = FALSE;
+					jugando = false;
 					break;
 				}
 			}
 		else{
 			switch (idJugador){
 				case 0:
-					readbytes = read(p30[0], buffer, SIZE)
+					readbytes = read(p30[0], buffer, 50);
 					while( readbytes > 0){
 						write(1, buffer, readbytes);
 						}
@@ -136,7 +139,7 @@ void procesos(){
 					break;
 
 				case 1:
-					readbytes = read(p01[0], buffer, SIZE)
+					readbytes = read(p01[0], buffer, 50);
 					while( readbytes > 0){
 						write(1, buffer, readbytes);
 						}
@@ -144,7 +147,7 @@ void procesos(){
 					break;
 
 				case 2:
-					readbytes = read(p12[0], buffer, SIZE)
+					readbytes = read(p12[0], buffer, 50);
 					while( readbytes > 0){
 						write(1, buffer, readbytes);
 						}
@@ -152,41 +155,41 @@ void procesos(){
 					break;
 
 				case 3:
-					readbytes = read(p23[0], buffer, SIZE)
+					readbytes = read(p23[0], buffer, 50);
 					while( readbytes > 0){
 						write(1, buffer, readbytes);
 						}
 					close(p23[0]);
 					//borrar despues
-					jugando = FALSE;
+					jugando = false;
 					break;
 				}
 			}
 		
 		//Jugar
 
-		if(reversa == TRUE){
+		if(reversa == true){
 			switch (idJugador){
 				case 0:
-					strcpy(buffer, "turno acabado");
+					strcpy(buffer, mensaje);
 					write( p03[1], buffer, strlen(buffer));
 					close( p03[1]);
 					break;
 
 				case 1:
-					strcpy(buffer, "turno acabado");
+					strcpy(buffer, mensaje);
 					write( p10[1], buffer, strlen(buffer));
 					close( p10[1]);
 					break;
 
 				case 2:
-					strcpy(buffer, "turno acabado");
+					strcpy(buffer, mensaje);
 					write( p21[1], buffer, strlen(buffer));
 					close( p21[1]);
 					break;
 
 				case 3:
-					strcpy(buffer, "turno acabado");
+					strcpy(buffer, mensaje);
 					write( p32[1], buffer, strlen(buffer));
 					close( p32[1]);
 					break;
@@ -195,25 +198,25 @@ void procesos(){
 		else{
 			switch (idJugador){
 				case 0:
-					strcpy(buffer, "turno acabado");
+					strcpy(buffer, mensaje);
 					write( p01[1], buffer, strlen(buffer));
 					close( p01[1]);
 					break;
 
 				case 1:
-					strcpy(buffer, "turno acabado");
+					strcpy(buffer, mensaje);
 					write( p12[1], buffer, strlen(buffer));
 					close( p12[1]);
 					break;
 
 				case 2:
-					strcpy(buffer, "turno acabado");
+					strcpy(buffer, mensaje);
 					write( p23[1], buffer, strlen(buffer));
 					close( p23[1]);
 					break;
 
 				case 3:
-					strcpy(buffer, "turno acabado");
+					strcpy(buffer, mensaje);
 					write( p30[1], buffer, strlen(buffer));
 					close( p30[1]);
 					break;
