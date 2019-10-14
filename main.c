@@ -7,6 +7,7 @@
 #include <errno.h>
 #include "manejo.h"
 #include "logica.h"
+#include "procesos.h"
 
 int primerTurno = 1;
 
@@ -26,8 +27,9 @@ int main(int argc, char **argv)
 	}
 	
 	printf("Bienvenido a UNO\n");
-	int cartasExtra = 0;
-	while(checkMazo()) turno(1, &cartasExtra);
-	if(!checkMazo()) printf("\nSe agotaron las cartas...\n");
+	procesos();
+	
+	//while(checkMazo()) turno(1, &cartasExtra);
+	//if(!checkMazo()) printf("\nSe agotaron las cartas...\n");
 	return 0;
 }

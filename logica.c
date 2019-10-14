@@ -33,16 +33,16 @@ void turno(int jugador, int *cartasExtra) {
 	char** cartas;
 	
 	switch(jugador) {
-		case 1:
+		case 0:
 			strcpy(mano, "mano 1");
 			break;
-		case 2:
+		case 1:
 			strcpy(mano, "mano 2");
 			break;
-		case 3:
+		case 2:
 			strcpy(mano, "mano 3");
 			break;
-		case 4:
+		case 3:
 			strcpy(mano, "mano 4");
 			break;
 	}

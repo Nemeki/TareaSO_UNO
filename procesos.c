@@ -4,6 +4,8 @@
  #include <stdbool.h>
  #include <string.h>
  #include "procesos.h"
+ #include "logica.h"
+ #include "manejo.h"
 
  /*
 *	 procesos()
@@ -21,6 +23,7 @@ void procesos(){
 	pid_t pid;
 	int idJugador;
 	int p01[2], p10[2], p12[2], p21[2], p23[2], p32[2], p30[2], p03[2];
+	int cartasExtra = 0;
  
 	bool jugando, reversa;
 	int readbytes;
@@ -77,6 +80,7 @@ void procesos(){
 	}
 	
 	if(idJugador == 0){
+		turno(idJugador, &cartasExtra);
 		//Jugar turno.
 		//pipe normal
 		if(reversa == true){
@@ -166,7 +170,7 @@ void procesos(){
 				}
 			}
 		
-		//Jugar
+		turno(idJugador, &cartasExtra);
 
 		if(reversa == true){
 			switch (idJugador){
