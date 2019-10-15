@@ -15,15 +15,17 @@ int primerTurno;
 *	Obviamente su implementacion se va a adaptar al uso de pipes.
 **********
 *   Input:
-*		int jugador: numero del 1-4, representa el jugador
+*		int *jugador: numero del 1-4, representa el jugador
 *		int *cartasExtra: representa el numero de cartas al jugador le puede tocar sacar. 
-*  		La idea es que no se pierda entre turnos (variable sujeta a modificaciones).
+* 		int *salto: si es que el proximo jugador se salta (1 o 0)
+* 		int *reversa: si es que el juego va en reversa (1 o 0)
+* 		int *termino: si es que alguna condicion de termino ya se cumplio
 ******
 *   Returns:
 *       Nada
 *****/
 
-void turno(int jugador, int *cartasExtra) {
+void turno(int *jugador, int *cartasExtra, int *salto, int *reversa, int *termino) {
 	FILE* fp;
 	char archivoCarta[128];
 	int n, accion, boolean = 1;
@@ -31,18 +33,19 @@ void turno(int jugador, int *cartasExtra) {
 	int accionCarta[3];
 	char mano[10];
 	char** cartas;
+	int ogjugador = *jugador;
 	
-	switch(jugador) {
-		case 0:
+	switch(*jugador) {
+		case 1:
 			strcpy(mano, "mano 1");
 			break;
-		case 1:
+		case 2:
 			strcpy(mano, "mano 2");
 			break;
-		case 2:
+		case 3:
 			strcpy(mano, "mano 3");
 			break;
-		case 3:
+		case 4:
 			strcpy(mano, "mano 4");
 			break;
 	}
@@ -51,6 +54,13 @@ void turno(int jugador, int *cartasExtra) {
 		printf("\nTe toca sacar %d cartas\n", *cartasExtra);
 		for(; *cartasExtra > 0; (*cartasExtra)--)
 			tomarCarta(mano);
+	}
+	
+	if(*salto) {
+		printf("\nSe salta el turno del jugador %d\n", *jugador);
+		*salto = 0;
+		*jugador = proximoJugador(*jugador, *reversa);
+		return;
 	}
 	
 MENU: 
@@ -65,14 +75,15 @@ MENU:
 		} else if(ultimaCarta[0] == 1) { //cartas +2
 			*cartasExtra += ultimaCarta[2];
 		} else if(ultimaCarta[0] == 2 && ultimaCarta[2] == 1) { //reversa
-			//wip
+			*reversa = (*reversa == 0) ? 1 : 0; 
 		} else if(ultimaCarta[0] == 2 && ultimaCarta[2] == 2) { //salto
-			printf("\nSe salta tu turno\n");
+			printf("\nSe salta el turno del jugador %d\n", *jugador);
+			(*jugador)++;
 			return;
 		}
 	}
 	
-	printf("\nMano jugador %d:\n", jugador);
+	printf("\nMano jugador %d:\n", *jugador);
 	n = leerMano(mano, &cartas);
 	
 	if(boolean)
@@ -83,7 +94,10 @@ MENU:
 	
 	if(accion == n + 1) {
 		liberarMemoria(cartas, n);
-		if(!boolean) return;
+		if(!boolean) {
+			*jugador = proximoJugador(*jugador, *reversa);
+			return;
+		}
 		boolean--;
 		tomarCarta(mano);
 		goto MENU;
@@ -94,12 +108,13 @@ MENU:
 	fscanf(fp, "%d %d %d", &accionCarta[0], &accionCarta[1], &accionCarta[2]);
 	fclose(fp);
 	
-	if(cartaCompatible(accionCarta, ultimaCarta, cartas, accion, cartasExtra, mano)) {
+	if(cartaCompatible(accionCarta, ultimaCarta, cartas, accion, cartasExtra, mano, jugador, salto, reversa)) {
 		liberarMemoria(cartas, n);
-		if(n == 2) printearUno(jugador);
+		if(n == 2) printearUno(ogjugador);
 		if(n == 1) {
-			printf("\nFin del juego!\n");
-			exit(0);
+			printf("\nFin del juego, ganador: jugador %d!\n", ogjugador);
+			*termino = 1;
+			return;
 		}
 		return;
 	}
@@ -124,12 +139,17 @@ MENU:
 * 		int accion: numero de la eleccion del jugador
 * 		int *cartasExtra: representa el numero de cartas al jugador le puede tocar sacar
 * 		char *mano: nombre de la carpeta de la mano actual
+* 		int *jugador: jugador actual
+* 		int *salto: si es que el proximo jugador se salta (1 o 0)
+* 		int *reversa: si es que el juego va en reversa (1 o 0)
+* 
 ******
 *   Returns:
 *       1 si es un movimiento valido, 0 en caso contrario
 *****/
 
-int cartaCompatible(int *accionCarta, int *ultimaCarta, char **cartas, int accion, int *cartasExtra, char *mano) {
+int cartaCompatible(int *accionCarta, int *ultimaCarta, char **cartas, int accion, int *cartasExtra, char *mano, 
+					int *jugador, int *salto, int *reversa) {
 	switch(accionCarta[0]) {
 		case 0:
 			if(ultimaCarta[0] == 0) {
@@ -138,6 +158,7 @@ int cartaCompatible(int *accionCarta, int *ultimaCarta, char **cartas, int accio
 				if(accionCarta[1] != ultimaCarta[1]) break;
 			}
 			moverUltima(cartas[accion - 1], mano);
+			*jugador = proximoJugador(*jugador, *reversa);
 			return 1;
 			
 		case 1:
@@ -154,14 +175,24 @@ int cartaCompatible(int *accionCarta, int *ultimaCarta, char **cartas, int accio
 				escribirUltima(accionCarta);
 			}
 			*cartasExtra += accionCarta[2];
+			*jugador = proximoJugador(*jugador, *reversa);
+			*salto = 1;
 			return 1;
 			
 		case 2:
 			if(accionCarta[1] != 0) {
 				if(accionCarta[2] == ultimaCarta[2] && ultimaCarta[0] == 2) {
+					if(accionCarta[2] == 1)
+						*reversa = (*reversa == 0) ? 1 : 0; 
+					else
+						*salto = 1;
 					moverUltima(cartas[accion - 1], mano);
 				} else {
 					if(accionCarta[1] != ultimaCarta[1]) break;
+					if(accionCarta[2] == 1)
+						*reversa = (*reversa == 0) ? 1 : 0; 
+					else
+						*salto = 1;
 					moverUltima(cartas[accion - 1], mano);
 				}
 			} else {
@@ -169,6 +200,7 @@ int cartaCompatible(int *accionCarta, int *ultimaCarta, char **cartas, int accio
 				moverUltima(cartas[accion - 1], mano);
 				escribirUltima(accionCarta);
 			}
+			*jugador = proximoJugador(*jugador, *reversa);
 			return 1;
 	}
 	
@@ -399,4 +431,31 @@ void liberarMemoria(char **ptr, int n) {
 	for(int i = 0; i < n; i++ )
 			free(ptr[i]);
 		free(ptr);
+}
+
+/*
+*	proximoJugador(int actual, int reversa)
+*********
+*   Funcion que retorna a que jugador le toca
+**********
+*   Input:
+*		int actual: jugador actual
+*		int reversa: si el juego va en reversa
+******
+*   Returns:
+*       int actual: al jugador al que le toca
+*****/ 
+
+int proximoJugador(int actual, int reversa) {
+	if(actual == 1 && reversa == 1) {
+		actual = 4;
+	} else if(actual == 4 && reversa == 0) {
+		actual = 1;
+	} else if(reversa == 1) {
+		actual--;
+	} else {
+		actual++;
+	}
+	
+	return actual;
 }
